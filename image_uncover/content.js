@@ -7,7 +7,7 @@ chrome.extension.onMessage.addListener(function(message, sender, sendResponse) {
 			} else {
 				for(var i=0; i<images.length; i++) {
 					if (images[i].src != "") {
-							displayMessage(images[i], message.key);
+							displayMessage(images[i], message.key_guess);
 						}
 				}
 			}
@@ -15,7 +15,7 @@ chrome.extension.onMessage.addListener(function(message, sender, sendResponse) {
 	}
 });
 
-var displayMessage = function(img, key) {
+var displayMessage = function(img, key_guess) {
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", "http://localhost:56555/", true);
 	xhr.onreadystatechange = function() {
@@ -34,5 +34,5 @@ var displayMessage = function(img, key) {
 	    }
 	}
 	xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-	xhr.send("goal=decrypt&url_id="+img.src+"&key="+key);
+	xhr.send("goal=decrypt&url_id="+img.src+"&key_guess="+key_guess);
 }

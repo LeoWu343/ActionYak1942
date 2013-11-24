@@ -19,7 +19,7 @@ def display_something():
 
 def decrypt():
 	file1 = extract_image(request.form["url_id"])
-	key_guess = request.form["key"]
+	key_guess = request.form["key_guess"]
 
 	proc = subprocess.Popen(["./steg","-d", file1], stdout=subprocess.PIPE)
 	message = proc.stdout.readline()
@@ -39,43 +39,16 @@ def decrypt():
 def action():
 	if request.form['goal'] == 'decrypt':
 		return decrypt()
-#		file1 = extract_image(request.form["url_id"])
-#		proc = subprocess.Popen(["./steg","-d", file1], stdout=subprocess.PIPE)
-#		message = proc.stdout.readline()
-#		signature = "__%%__$$__"
-#			message = message[len(signature):]
-#			return message #True
-#		else:
-#			return message #False
 	else:
-		#signature = "__%%__$$__"
+		key = request.form['protection_key'], 
 		msg = request.form['message']
 		file1 = extract_image(request.form["url_id"])
-		proc = subprocess.Popen(["./steg","-e", file1, file1, msg], stdout=subprocess.PIPE)
-		#message = proc.stdout.readline()
-		# with open(file1, "rb") as f:
-		# 	data = f.read()
-  		#	data.encode("base64")
-		# send_file(file1)
+		proc = subprocess.Popen(["./steg","-e", file1, file1, msg, key], stdout=subprocess.PIPE)
 		link1 = imgur(file1)
 		return link1
-#---------Tweet-------------------
+#---------Imgur-------------------
 
 def imgur(file1):
-	# client_id = '435af258a810ee9'
-	# headers = {"Authorization": "Client-ID my-client-id"}
-	# api_key = 'my-api-key'
-	# url = "https://api.imgur.com/3/upload.json"
-	# j1 = requests.post(url, headers = headers,
-	#     data = {
-	#         'key': api_key, 
-	#         'image': b64encode(open('file1','rb').read()),
-	#         'type': 'base64',
-	#         'name': '1.jpg',
-	#         'title': 'Picture no. 1'
-	#     })
-	#headers = {'Authorization':'Client-ID {0}'.format(client_id)}
-	#url = 'https://api.imgur.com/3/upload.json'
 	client_id1 = '435af258a810ee9'
 	client_secret1 = '30c186991750dbe5619579ad8f8845ad9a224232'
 	path = file1
