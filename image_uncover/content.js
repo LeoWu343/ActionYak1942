@@ -18,9 +18,9 @@ var displayMessage = function(img) {
 	xhr.open("POST", "http://localhost:56555/", true);
 	xhr.onreadystatechange = function() {
 	    if (xhr.readyState == 4) {
-		img.onclick = function() { alert(xhr.responseText); };
+			img.onclick = function() { alert(xhr.responseText); };
 	    }
 	}
 	xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-	xhr.send("url_id="+img.src);
+	xhr.send("goal=decrypt&url_id="+img.src);
 }
