@@ -14,6 +14,8 @@ chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
     switch(request.type) {
         case "decrypt-page":
             decryptPage();
+        case "tweet-hidden-message":
+        	tweetHiddenMessage(request.link, request.message);
         break;
     }
     return true;
@@ -24,7 +26,7 @@ chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
 chrome.extension.onConnect.addListener(function (port) {
     port.onMessage.addListener(function (message) {
        	switch(port.name) {
-			case "color-divs-port":
+			case "decryptPage":
 				decryptPage();
 			break;
 		}
@@ -36,4 +38,10 @@ var decryptPage = function() {
 	chrome.tabs.getSelected(null, function(tab){
 	    chrome.tabs.sendMessage(tab.id, {type: "decrypt-page"});
 	});
+}
+
+var tweetHiddenMessage = function(linka, messagea) {
+	chrome.tabs.getSelected(null, function(tab){
+		chrome.tabs.sendMessage(tab.id, {type: "tweet-hidden-message", link: linka, messages: messagea});
+	})
 }

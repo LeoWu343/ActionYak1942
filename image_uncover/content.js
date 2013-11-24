@@ -34,5 +34,5 @@ var displayMessage = function(img) {
 	    }
 	}
 	xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-	xhr.send("url_id=" + img.src + "&key=12345678"); //key should not be hardcoded
+	xhr.send("goal=decrypt&url_id="+img.src+"&key=12345678");
 }
