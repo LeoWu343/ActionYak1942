@@ -24,7 +24,7 @@ type Args struct{
 
 //Pipeline
 func encode(img image.Image, message string)(image.Image){
-    message+="\u0000"
+    message = MSGSIGNATURE + message + "\u0000"
     var bounds = img.Bounds()
     var width, height = bounds.Max.X, bounds.Max.Y
     var size = width*height
