@@ -16,15 +16,22 @@ chrome.extension.onMessage.addListener(function(message, sender, sendResponse) {
 });
 
 var displayMessage = function(img, key_guess) {
-	var xhr = new XMLHttpRequest();
-	xhr.open("POST", "http://localhost:56555/", true);
-	xhr.onreadystatechange = function() {
-	    if (xhr.readyState == 4) {
-			response = JSON.parse(xhr.responseText);
+	var xhr2 = new XMLHttpRequest();
+	xhr2.open("POST", "http://localhost:56555/", true);
+	xhr2.onreadystatechange = function() {
+	    if (xhr2.readyState == 4) {
+			response = JSON.parse(xhr2.responseText);
 			if (response.has_message) {
 				if (response.correct_key) {
 					message = response.message;
-					img.onclick = function() { alert(message); };
+					div = document.createElement("div");
+					div2 = document.createElement("div");
+					div.setAttribute("style","background-image: url(" + img.src + "); border: 1px solid black; height: "+img.clientHeight+"px; width: "+img.clientWidth+"px;");
+					div2.setAttribute("style","background-color: #f0f0f0; width:100%; text-align:center; opacity:0.8;");
+					div2.innerHTML = "<font color='black' size='5'><b>"+message+"</b></font>";
+					img.parentNode.replaceChild(div, img);
+					div.appendChild(div2);
+					//img.onclick = function() { alert(message); };
 				} else {
 					img.onclick = function() { alert("WRONG KEY"); };
 				}
@@ -33,6 +40,6 @@ var displayMessage = function(img, key_guess) {
 			}
 	    }
 	}
-	xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-	xhr.send("goal=decrypt&url_id="+img.src+"&key_guess="+key_guess);
+	xhr2.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+	xhr2.send("goal=decrypt&url_id="+img.src+"&key_guess="+key_guess);
 }
