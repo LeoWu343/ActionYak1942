@@ -2,12 +2,17 @@ from flask import Flask, request
 app = Flask(__name__)
 import urllib
 import os
+import subprocess
 
 SERVER_PORT = 56555
 
+@app.route('/', methods = ['GET'])
+def display_something():
+	return 'You give me cancer.'
+
 @app.route('/', methods =['POST'])
 def decrypt():
-	file1 = extract_image(request.form['url_id'])
+	file1 = extract_image(request.form[0][1])
 	proc = subprocess.Popen(["./steg","-d", file1], stdout=subprocess.PIPE)
 	message = proc.stdout.readline()
 	signature = "__%%__$$__"
@@ -18,6 +23,7 @@ def decrypt():
 		return None
 
 def extract_image(link):
+	print link
 	f = open("test.png", "wb")
 	f.write(urllib.urlopen(link).read())
 	f.close()
