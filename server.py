@@ -5,7 +5,6 @@ import os
 import subprocess
 import base64
 import json
-import requests
 from base64 import b64encode
 import pyimgur
 
@@ -75,19 +74,18 @@ def imgur(file1):
 	#         'name': '1.jpg',
 	#         'title': 'Picture no. 1'
 	#     })
-	client_id = '435af258a810ee9'
-	client_secret = '30c186991750dbe5619579ad8f8845ad9a224232'
-	url = 'https://api.imgur.com/3/upload.json'
-	path = file1
 	#headers = {'Authorization':'Client-ID {0}'.format(client_id)}
-	im = pyimgur.Imgur(client_id, client_secret)
-	uploaded_image = im.upload_image(path, "Anonymous upload with PyImgur")
+	#url = 'https://api.imgur.com/3/upload.json'
+	client_id1 = '435af258a810ee9'
+	client_secret1 = '30c186991750dbe5619579ad8f8845ad9a224232'
+	path = file1
+	im = pyimgur.Imgur(client_id = client_id1, client_secret = client_secret1)
+	uploaded_image = im.upload_image(path, title = "Anonymous upload with PyImgur")
 	print(uploaded_image.title)
 	print(uploaded_image.link)
 	print(uploaded_image.size)
 	print(uploaded_image.type)
 	return uploaded_image.link
-
 
 def send_file(pic):
 	return send_file(pic, mimetype='image/png')
