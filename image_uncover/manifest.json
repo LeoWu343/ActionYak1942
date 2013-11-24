@@ -1,8 +1,8 @@
 {
-  "name": "Sneaaakaayyy Tweeaatayyy",
+  "name": "Stegosaurus",
   "version": "0.0.1",
   "manifest_version": 2,
-  "description" : "Description ...",
+  "description" : "Mr. Stegosaurus will help you hide your information and find sneaky messages inside of images.",
   "icons": { "16": "icons/16x16.png", "48": "icons/48x48.png", "128": "icons/128x128.png" },
 
   "omnibox": { "keyword" : "yeah" },
