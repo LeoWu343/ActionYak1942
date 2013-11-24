@@ -12,18 +12,19 @@ def display_something():
 
 @app.route('/', methods =['POST'])
 def decrypt():
-	file1 = extract_image(request.form[0][1])
+	file1 = extract_image(request.form["url_id"])
 	proc = subprocess.Popen(["./steg","-d", file1], stdout=subprocess.PIPE)
 	message = proc.stdout.readline()
 	signature = "__%%__$$__"
 	if signature == message[0:len(signature)]:
 		message = message[len(signature):]
+		print("Decrypts to " + message)
 		return message
 	else:
-		return None
+		print("Return none")
+		return "Hello" # return None is like throwing an error!
 
 def extract_image(link):
-	print link
 	f = open("test.png", "wb")
 	f.write(urllib.urlopen(link).read())
 	f.close()
