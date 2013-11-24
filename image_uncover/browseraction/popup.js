@@ -3,8 +3,6 @@ window.onload = function() {
             chrome.extension.sendMessage({
                 type: "decrypt-page",
                 key_guess: document.getElementById("key_guess").value
-            }, function(response){
-                document.getElementById("thing").innerHTML = response;
             });
         }
         document.getElementById("encrypt").onclick = function() {
