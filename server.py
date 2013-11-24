@@ -1,8 +1,18 @@
+<<<<<<< HEAD
 from flask import Flask, request, Response, json
+=======
+from flask import Flask, request, session
+import flask
+import tweepy
+>>>>>>> 9c2cb1f590b5400960e4ac10a3adf396077597ae
 app = Flask(__name__)
 import urllib
 import os
 import subprocess
+#from twitter.api import Twitter
+import oauth2 as ouath
+import base64
+#from flask_oauth import oauth
 
 SERVER_PORT = 56555
 SIGNATURE = "__%%__$$__"
@@ -12,7 +22,6 @@ KEY_DELIMETER = "|||"
 def display_something():
 	return 'You give me cancer.'
 
-@app.route('/', methods =['POST'])
 def decrypt():
 	file1 = extract_image(request.form["url_id"])
 	key_guess = request.form["key"]
@@ -31,6 +40,32 @@ def decrypt():
 	resp = Response(js, status=200, mimetype='application/json')
 	return resp
 
+@app.route('/', methods =['POST'])
+def action():
+	if request.form['goal'] == 'decrypt':
+		return decrypt()
+#		file1 = extract_image(request.form["url_id"])
+#		proc = subprocess.Popen(["./steg","-d", file1], stdout=subprocess.PIPE)
+#		message = proc.stdout.readline()
+#		signature = "__%%__$$__"
+#			message = message[len(signature):]
+#			return message #True
+#		else:
+#			return message #False
+	else:
+		#signature = "__%%__$$__"
+		msg = request.form['message']
+		file1 = extract_image(request.form["url_id"])
+		proc = subprocess.Popen(["./steg","-e", file1, file1, msg], stdout=subprocess.PIPE)
+		#message = proc.stdout.readline()
+		with open(file1, "rb") as f:
+    		data = f.read()
+    		data.encode("base64")
+		send_file(file1)
+#---------Tweet-------------------
+
+def send_file(pic):
+	return send_file(pic, mimetype='image/png')
 
 def extract_image(link):
 	f = open("test.png", "wb")
@@ -43,5 +78,3 @@ if __name__ == '__main__':
 
 
 
-#f = open("test.png", "wb")
-#f.write(urllib.urlopen("http://placekitten.com.s3.amazonaws.com/homepage-samples/408/287.jpg").read())
