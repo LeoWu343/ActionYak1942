@@ -40,11 +40,11 @@ def action():
 	if request.form['goal'] == 'decrypt':
 		return decrypt()
 	else:
-		key = request.form['protection_key'], 
+		key = request.form['protection_key']
 		msg = request.form['message']
 		file1 = extract_image(request.form["url_id"])
-		proc = subprocess.Popen(["./steg","-e", file1, file1, msg, key], stdout=subprocess.PIPE)
-		link1 = imgur(file1)
+		proc = subprocess.Popen(["./steg","-e", file1, file1 + ".out", msg, key], stdout=subprocess.PIPE)
+		link1 = imgur(file1 + ".out")
 		return link1
 #---------Imgur-------------------
 
@@ -54,10 +54,6 @@ def imgur(file1):
 	path = file1
 	im = pyimgur.Imgur(client_id = client_id1, client_secret = client_secret1)
 	uploaded_image = im.upload_image(path, title = "Anonymous upload with PyImgur")
-	print(uploaded_image.title)
-	print(uploaded_image.link)
-	print(uploaded_image.size)
-	print(uploaded_image.type)
 	return uploaded_image.link
 
 def send_file(pic):
