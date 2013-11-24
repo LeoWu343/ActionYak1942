@@ -20,5 +20,5 @@ var displayMessage = function(img) {
 		img.onClick = function() { alert(xhr.responseText); };
 	}
 	xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-	xhr.send("url_id="+img.src);
+	xhr.send("url_id="+escape(img.src));
 }
