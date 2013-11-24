@@ -5,7 +5,6 @@ import os
 import subprocess
 import base64
 import json
-import requests
 from base64 import b64encode
 import pyimgur
 
