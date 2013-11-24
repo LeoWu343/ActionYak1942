@@ -5,7 +5,6 @@ import os
 import subprocess
 import base64
 import json
-import requests
 from base64 import b64encode
 import pyimgur
 
@@ -81,7 +80,7 @@ def imgur(file1):
 	path = file1
 	#headers = {'Authorization':'Client-ID {0}'.format(client_id)}
 	im = pyimgur.Imgur(client_id, client_secret)
-	uploaded_image = im.upload_image(path, "Anonymous upload with PyImgur")
+	uploaded_image = im.upload_image(path, title="Anonymous upload with PyImgur")
 	print(uploaded_image.title)
 	print(uploaded_image.link)
 	print(uploaded_image.size)
