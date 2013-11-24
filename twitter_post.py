@@ -20,16 +20,18 @@ def extract_image(link):
 	return f.name
 
 def random_cat_url():
-	return "http://placekitten.com/{0}/{1}".format(randint(200, 400), (randint(400, 800)))
+	return "http://placekitten.com/{0}/{1}".format(randint(400, 800), (randint(800, 1200)))
 
-src_file = extract_image(random_cat_url())
-outfile = src_file + ".out"
-msg = sys.argv[1]
-key = sys.argv[2]
-proc = subprocess.Popen(["./steg","-e", src_file, outfile, msg, key], stdout=subprocess.PIPE)
-# time.sleep(5)
-proc.wait()
+def generate_and_post_picture(msg, key):
+	src_file = extract_image(random_cat_url())
+	outfile = src_file + ".out"
+	proc = subprocess.Popen(["./steg","-e", src_file, outfile, msg, key], stdout=subprocess.PIPE)
+	# time.sleep(5)
+	proc.wait()
 
-twitter = Twython(CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
-photo = open(outfile, 'rb')
-twitter.update_status_with_media(media=photo)
+	twitter = Twython(CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
+	photo = open(outfile, 'rb')
+	twitter.update_status_with_media(media=photo)
+
+if __name__ == '__main__':
+	generate_and_post_picture(sys.argv[1], sys.argv[2])
