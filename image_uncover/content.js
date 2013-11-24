@@ -15,6 +15,7 @@ chrome.extension.onMessage.addListener(function(message, sender, sendResponse) {
 	}
 });
 
+// TODO: notify user when done processing
 var displayMessage = function(img, key_guess) {
 	var xhr2 = new XMLHttpRequest();
 	xhr2.open("POST", "http://localhost:56555/", true);
