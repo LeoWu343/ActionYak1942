@@ -17,7 +17,7 @@ var displayMessage = function(img) {
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", "http://localhost:56555/", true);
 	xhr.onstatereadychange = function() {
-		img.onClick = function() { alert(xhr.responseText); };
+		img.onclick = function() { alert(xhr.responseText); };
 	}
 	xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 	xhr.send("url_id="+img.src);
