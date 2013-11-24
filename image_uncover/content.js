@@ -27,7 +27,7 @@ var displayMessage = function(img, key_guess) {
 					message = response.message;
 					div = document.createElement("div");
 					div2 = document.createElement("div");
-					div.setAttribute("style","background-image: url(" + img.src + "); background-size: contain; border: 1px solid black; height: "+img.clientHeight+"px; width: "+img.clientWidth+"px;");
+					div.setAttribute("style","background-image: url(" + img.src + "); background-size: contain; border: 1px solid #b0b0b0; height: "+img.clientHeight+"px; width: "+img.clientWidth+"px;");
 					div2.setAttribute("style","background-color: #f0f0f0; width:100%; text-align:center; opacity:0.8;");
 					div2.innerHTML = "<font color='black' size='5'><p><b>"+message+"</b></p></font>";
 					img.parentNode.replaceChild(div, img);
