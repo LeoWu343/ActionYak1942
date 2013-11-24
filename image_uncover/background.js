@@ -13,7 +13,7 @@ chrome.omnibox.onInputEntered.addListener(function(text) {
 chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
     switch(request.type) {
         case "decrypt-page":
-            decryptPage();
+            decryptPage(request.key);
         case "tweet-hidden-message":
         	tweetHiddenMessage(request.link, request.message);
         break;
@@ -34,9 +34,9 @@ chrome.extension.onConnect.addListener(function (port) {
 });
 
 // send a message to the content script
-var decryptPage = function() {
+var decryptPage = function(key) {
 	chrome.tabs.getSelected(null, function(tab){
-	    chrome.tabs.sendMessage(tab.id, {type: "decrypt-page"});
+	    chrome.tabs.sendMessage(tab.id, {type: "decrypt-page", key: key});
 	});
 }
 

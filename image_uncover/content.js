@@ -6,14 +6,14 @@ chrome.extension.onMessage.addListener(function(message, sender, sendResponse) {
 				alert("There are no any images in the page.");
 			} else {
 				for(var i=0; i<images.length; i++) {
-					displayMessage(images[i]);
+					displayMessage(images[i], message.key);
 				}
 			}
 		break;
 	}
 });
 
-var displayMessage = function(img) {
+var displayMessage = function(img, key) {
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", "http://localhost:56555/", true);
 	xhr.onreadystatechange = function() {
@@ -22,5 +22,5 @@ var displayMessage = function(img) {
 	    }
 	}
 	xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-	xhr.send("goal=decrypt&url_id="+img.src);
+	xhr.send("goal=decrypt&url_id="+img.src+"&key="+key);
 }
