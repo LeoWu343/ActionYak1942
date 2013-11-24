@@ -1,12 +1,13 @@
 window.onload = function() {
         document.getElementById("decrypt").onclick = function() {
             chrome.extension.sendMessage({
-                type: "decrypt-page"
+                type: "decrypt-page",
+                key: document.getElementById("key").value
             });
         }
         document.getElementById("encrypt").onclick = function() {
-            var link = document.getElementById("link").text;
-            var message = document.getElementById("message").text;
+            var link = document.getElementById("link").value;
+            var message = document.getElementById("message").value;
             sendInfo(link, message);
         }
 }
