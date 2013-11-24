@@ -1,16 +1,12 @@
-<<<<<<< HEAD
-from flask import Flask, request, Response, json
-=======
-from flask import Flask, request, session
+from flask import Flask, request, Response, json, session
 import flask
-import tweepy
->>>>>>> 9c2cb1f590b5400960e4ac10a3adf396077597ae
+#import tweepy
 app = Flask(__name__)
 import urllib
 import os
 import subprocess
 #from twitter.api import Twitter
-import oauth2 as ouath
+#import oauth2 as ouath
 import base64
 #from flask_oauth import oauth
 
@@ -59,7 +55,7 @@ def action():
 		proc = subprocess.Popen(["./steg","-e", file1, file1, msg], stdout=subprocess.PIPE)
 		#message = proc.stdout.readline()
 		with open(file1, "rb") as f:
-    		data = f.read()
+			data = f.read()
     		data.encode("base64")
 		send_file(file1)
 #---------Tweet-------------------
