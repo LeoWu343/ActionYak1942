@@ -19,5 +19,6 @@ var displayMessage = function(img) {
 	xhr.onstatereadychange = function() {
 		img.onClick = function() { alert(xhr.responseText); };
 	}
+	xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 	xhr.send("url_id="+img.src);
 }
