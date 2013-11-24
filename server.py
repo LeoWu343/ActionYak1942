@@ -1,13 +1,9 @@
 from flask import Flask, request, Response, json, session
 import flask
 import urllib
-import os
 import subprocess
-import base64
 import json
-from base64 import b64encode
 import pyimgur
-import time
 
 app = Flask(__name__)
 SERVER_PORT = 56555
@@ -40,27 +36,31 @@ def decrypt():
 def action():
 	if request.form['goal'] == 'decrypt':
 		return decrypt()
+	elif request.form['goal'] == 'encrypt':
+		return encrypt_to_imgur()
 	else:
-		key = request.form['protection_key']
-		msg = request.form['message']
-		file1 = extract_image(request.form["url_id"])
-		outfile = file1 + ".out"
-		proc = subprocess.Popen(["./steg","-e", file1, outfile, msg, key], stdout=subprocess.PIPE)
-		time.sleep(5) # hack to keep IMGUR from running ahead of POPEN. Should make process synchronous instead
-		link1 = imgur(outfile)
-		return link1
+		return "BAD REQUEST" # TODO: return a real http response more reflective of situation
+
+def encrypt_to_imgur():
+	key = request.form['protection_key']	
+	msg = request.form['message']
+	src_file = extract_image(request.form["url_id"])
+	outfile = src_file + ".out"
+	proc = subprocess.Popen(["./steg","-e", src_file, outfile, msg, key], stdout=subprocess.PIPE)
+#	time.sleep(5) # hack to keep IMGUR from running ahead of POPEN. Should make process synchronous instead
+	proc.wait()
+
+	link1 = imgur(outfile)
+	return link1
+
 #---------Imgur-------------------
 
-def imgur(file1):
+def imgur(path):
 	client_id1 = '435af258a810ee9'
 	client_secret1 = '30c186991750dbe5619579ad8f8845ad9a224232'
-	path = file1
 	im = pyimgur.Imgur(client_id1, client_secret1)
 	uploaded_image = im.upload_image(path, title = "Anonymous upload with PyImgur")
 	return uploaded_image.link
-
-def send_file(pic):
-	return send_file(pic, mimetype='image/png')
 
 def extract_image(link):
 	f = open("tmp.png", "wb")
