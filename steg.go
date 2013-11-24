@@ -12,6 +12,8 @@ import (
 
 
 var MSGSIGNATURE="__%%__$$__"
+var KEY="12345678"
+var KEY_DELIMETER="|||"
 
 //Struct Definitions
 type Args struct{
@@ -24,7 +26,7 @@ type Args struct{
 
 //Pipeline
 func encode(img image.Image, message string)(image.Image){
-    message = MSGSIGNATURE + message + "\u0000"
+    message = MSGSIGNATURE + KEY + KEY_DELIMETER + message + "\u0000"
     var bounds = img.Bounds()
     var width, height = bounds.Max.X, bounds.Max.Y
     var size = width*height
@@ -155,6 +157,7 @@ func getArgs()(Args){
     if *encode{
         message = flag.Arg(2)
         outFileName = flag.Arg(1)
+
     }
     return Args{*decode,*encode,fileName,message,outFileName}
 }
