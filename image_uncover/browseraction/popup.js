@@ -9,7 +9,7 @@ window.onload = function() {
             var link = document.getElementById("link").value;
             var message = document.getElementById("message").value;
             var protection_key = document.getElementById("protection_key").value;
-            sendInfo(link, message);
+            sendInfo(link, message, protection_key);
         }
 }
 
