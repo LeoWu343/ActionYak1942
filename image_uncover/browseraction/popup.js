@@ -18,7 +18,7 @@ var sendInfo = function(link, message, protection_key) {
     xhr.open("POST", "http://localhost:56555/", true);
     xhr.onreadystatechange = function() {
         if (xhr.readyState == 4) {
-            document.getElementById("your_link").innerHTML = "<b>Your imgur link!</b><br>"+xhr.responseText;
+            document.getElementById("your_link").innerHTML = "<b>Your imgur link!</b><br><a target='_blank' href='"+xhr.responseText+"'>"+xhr.responseText+"</a>";
         }
     }
     xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
