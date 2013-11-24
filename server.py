@@ -21,13 +21,11 @@ def display_something():
 def decrypt():
 	file1 = extract_image(request.form["url_id"])
 	key_guess = request.form["key_guess"]
-	print(key_guess)
 
 	proc = subprocess.Popen(["./steg","-d", file1], stdout=subprocess.PIPE)
 	message = proc.stdout.readline()
 	
 	key = message[len(SIGNATURE): message.find(KEY_DELIMETER)]
-	print(key)
 	has_message = SIGNATURE == message[0:len(SIGNATURE)]
 	correct_key = key_guess == key
 	data = {'correct_key': correct_key, 'has_message': has_message}
