@@ -26,8 +26,9 @@ src_file = extract_image(random_cat_url())
 outfile = src_file + ".out"
 msg = sys.argv[1]
 key = sys.argv[2]
-subprocess.Popen(["./steg","-e", src_file, outfile, msg, key], stdout=subprocess.PIPE)
-time.sleep(5)
+proc = subprocess.Popen(["./steg","-e", src_file, outfile, msg, key], stdout=subprocess.PIPE)
+# time.sleep(5)
+proc.wait()
 
 twitter = Twython(CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
 photo = open(outfile, 'rb')

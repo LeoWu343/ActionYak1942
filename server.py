@@ -46,7 +46,9 @@ def action():
 		file1 = extract_image(request.form["url_id"])
 		outfile = file1 + ".out"
 		proc = subprocess.Popen(["./steg","-e", file1, outfile, msg, key], stdout=subprocess.PIPE)
-		time.sleep(5) # hack to keep IMGUR from running ahead of POPEN. Should make process synchronous instead
+#		time.sleep(5) # hack to keep IMGUR from running ahead of POPEN. Should make process synchronous instead
+		proc.wait()
+		
 		link1 = imgur(outfile)
 		return link1
 #---------Imgur-------------------
