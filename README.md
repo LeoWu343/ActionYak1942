@@ -9,6 +9,6 @@ Contributors:
 Alex Chu, 
 Kevin Li, 
 Sahil Patel, 
-Aakash Japi, 
-Leo Wu,
+Aakash Japi, and
+Leo Wu.
 
